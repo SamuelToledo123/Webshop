@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Repository {
     Properties properties = new Properties();
-   final String property_file = "C:\\Users\\samii\\OneDrive\\Skrivbord\\javascript läxor\\IdeaProjects\\DatabasTeknikHomework2\\src\\WebbShop\\Settings.Properties";
+   final String property_file = "src\\WebbShop\\Settings.Properties";
 
 
     public boolean validateUser(String userName, String passWord) throws IOException {
@@ -62,13 +62,13 @@ public class Repository {
                     String color = resultSet.getString("color");
                     temp.setColor(color);
 
-                    Map<Integer, String> categoryIdToName = new HashMap<>();
+                    /*Map<Integer, String> categoryIdToName = new HashMap<>();
                     categoryIdToName.put(1, "Boots");
                     categoryIdToName.put(2, "Finskor");
                     categoryIdToName.put(3, "Outdoor");
                     categoryIdToName.put(4, "Sneakers");
                     categoryIdToName.put(5, "Träning");
-
+                      */
 
                 }
                 return product;
@@ -80,6 +80,30 @@ public class Repository {
 
     public void addToCart() {
 
+    }
+    public List<CategoryTable> getCategories() throws IOException {
+        // Assume 'properties' and 'property_file' are already defined and available in your class
+        properties.load(new FileInputStream(property_file));
+        List<CategoryTable> categories = new ArrayList<>();
+
+        try (Connection connection = DriverManager.getConnection(
+                properties.getProperty("connectionString"),
+                properties.getProperty("username"),
+                properties.getProperty("password"));
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, namn FROM category");
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String namn = resultSet.getString("namn");
+                CategoryTable category = new CategoryTable(id, namn);
+                categories.add(category);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return categories;
     }
 }
 

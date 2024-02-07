@@ -31,11 +31,14 @@ public class Main {
 
                 int choice = scan.nextInt();
 
+
+                 List<CategoryTable> categoryList = repository.getCategories();
                 List<ProductTable> productList = repository.getProduct();
 
                 switch (choice) {
 
                     case 1:
+                        categoryList.forEach(c -> System.out.println(c.printInfo()));
                         productList.forEach(p -> System.out.println(p.printInfo()));
                         break;
                     case 2:

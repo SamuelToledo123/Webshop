@@ -1,5 +1,7 @@
 package WebbShop;
 
 public interface Interface {
-    String printInfo();
+   public String printInfo();
+
+
 }
