@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Repository {
     Properties properties = new Properties();
-   final String property_file = "src\\WebbShop\\Settings.Properties";
+   final String property_file = "C:\\Users\\samii\\OneDrive\\Skrivbord\\javascript läxor\\IdeaProjects\\DatabasTeknikHomework2\\src\\WebbShop\\Settings.Properties";
 
 
     public boolean validateUser(String userName, String passWord) throws IOException {
@@ -62,13 +62,6 @@ public class Repository {
                     String color = resultSet.getString("color");
                     temp.setColor(color);
 
-                    /*Map<Integer, String> categoryIdToName = new HashMap<>();
-                    categoryIdToName.put(1, "Boots");
-                    categoryIdToName.put(2, "Finskor");
-                    categoryIdToName.put(3, "Outdoor");
-                    categoryIdToName.put(4, "Sneakers");
-                    categoryIdToName.put(5, "Träning");
-                      */
 
                 }
                 return product;
@@ -78,9 +71,29 @@ public class Repository {
         }
     }
 
-    public void addToCart() {
+    public void addToCart(int userId,int orderId, int productId) throws IOException{
 
+        properties.load(new FileInputStream(property_file));
+
+        try (Connection connection = DriverManager.getConnection(
+                properties.getProperty("connectionString"),
+                properties.getProperty("username"),
+                properties.getProperty("password"));) {
+
+            PreparedStatement preparedStatement = connection.prepareStatement("CALL AddToCart(?, ?, ?)");
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, orderId);
+            preparedStatement.setInt(3, productId);
+            preparedStatement.execute();
+
+
+        } catch (SQLException e) {
+
+            throw new RuntimeException(e);
+        }
     }
+
+
     public List<CategoryTable> getCategories() throws IOException {
         // Assume 'properties' and 'property_file' are already defined and available in your class
         properties.load(new FileInputStream(property_file));

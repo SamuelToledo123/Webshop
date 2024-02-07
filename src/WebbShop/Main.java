@@ -22,28 +22,54 @@ public class Main {
             String passWord = scan.nextLine();
 
             if (repository.validateUser(userName, passWord)) {
-                System.out.println("inloggning funka");
-                System.out.println("välj ett alternativ");
-                System.out.println("1. visa skor");
-                System.out.println("2.avsluta program");
-
+                System.out.println("inloggning funka!");
+                System.out.println();
+                System.out.println();
+                System.out.println("välj Kategori");
+                System.out.println("1. Boots");
+                System.out.println("2. Finskor");
+                System.out.println("3. Outdoor");
+                System.out.println("4. Sneakers");
+                System.out.println("5. Träning");
+                System.out.println("6. Avsluta");
 
 
                 int choice = scan.nextInt();
 
-
-                 List<CategoryTable> categoryList = repository.getCategories();
+                List<CategoryTable> categoryList = repository.getCategories();
                 List<ProductTable> productList = repository.getProduct();
 
                 switch (choice) {
 
                     case 1:
-                        categoryList.forEach(c -> System.out.println(c.printInfo()));
-                        productList.forEach(p -> System.out.println(p.printInfo()));
+                        productList.stream().
+                                filter(p -> p.getCategoryId() == choice).
+                                forEach(p -> System.out.println(p.printInfo()));
                         break;
                     case 2:
-                        System.out.println("avslutar program");
+                        productList.stream()
+                                .filter(p -> p.getCategoryId() == choice)
+                                .forEach(p -> System.out.println(p.printInfo()));
                         break;
+                    case 3:
+                        productList.stream()
+                                .filter(p -> p.getCategoryId() == choice)
+                                .forEach(p -> System.out.println(p.printInfo()));
+                        break;
+                    case 4:
+                        productList.stream()
+                                .filter(p -> p.getCategoryId() == choice)
+                                .forEach(p -> System.out.println(p.printInfo()));
+                        break;
+                    case 5:
+                        productList.stream()
+                                .filter(p -> p.getCategoryId() == choice)
+                                .forEach(p -> System.out.println(p.printInfo()));
+                        break;
+                    case 6:
+                        System.out.println("Avslutar");
+                        break;
+
                     default:
                         System.out.println("ogiltigt svar");
                 }
