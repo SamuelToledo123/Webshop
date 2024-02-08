@@ -42,25 +42,11 @@ public class Main {
                 switch (choice) {
 
                     case 1:
-                        productList.stream().
-                                filter(p -> p.getCategoryId() == choice).
-                                forEach(p -> System.out.println(p.printInfo()));
-                        break;
-                    case 2:
-                        productList.stream()
-                                .filter(p -> p.getCategoryId() == choice)
-                                .forEach(p -> System.out.println(p.printInfo()));
-                        break;
-                    case 3:
-                        productList.stream()
-                                .filter(p -> p.getCategoryId() == choice)
-                                .forEach(p -> System.out.println(p.printInfo()));
-                        break;
-                    case 4:
-                        productList.stream()
-                                .filter(p -> p.getCategoryId() == choice)
-                                .forEach(p -> System.out.println(p.printInfo()));
-                        break;
+                        case 2:
+                            case 3:
+                                case 4:
+
+
                     case 5:
                         productList.stream()
                                 .filter(p -> p.getCategoryId() == choice)
