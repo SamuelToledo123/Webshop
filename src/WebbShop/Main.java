@@ -3,6 +3,8 @@ package WebbShop;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 public class Main {
@@ -15,10 +17,10 @@ public class Main {
 
             Scanner scan = new Scanner(System.in);
 
-            System.out.println("ange namn");
+            System.out.print("Ange namn: ");
             String userName = scan.nextLine().trim();
 
-            System.out.println("ange lösen");
+            System.out.print("Ange lösen: ");
             String passWord = scan.nextLine().trim();
             int userID = repository.getUserID(userName, passWord);
 
@@ -51,11 +53,21 @@ public class Main {
 
 
                     case 5:
-                        System.out.println("Skriv in ID på produkt du vill lägga till:");
+                        System.out.println("Svara nedan för att välja produkt:");
 
                         productList.stream()
-                                .filter(p -> p.getCategoryId() == choice)
-                                .forEach(p -> System.out.println(p.printInfo()));
+                             .filter(p -> p.getCategoryId() == choice)
+                              .forEach(p -> System.out.println(p.printInfo()));
+
+                        System.out.print("Märke: ");
+                        String brandChoice = scan.next();
+
+                        System.out.print("Storlek: ");
+                        int sizeChoice = scan.nextInt();
+
+
+
+
 
                         int productID = scan.nextInt();
 

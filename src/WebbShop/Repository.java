@@ -8,8 +8,7 @@ import java.util.*;
 
 public class Repository {
     Properties properties = new Properties();
-    final String property_file = "" +
-            "src\\WebbShop\\Settings.Properties";
+    final String property_file = "src\\WebbShop\\Settings.Properties";
 
 
     public boolean validateUser(String userName, String passWord) throws IOException {
