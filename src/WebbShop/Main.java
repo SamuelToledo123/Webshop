@@ -20,16 +20,10 @@ public class Main {
 
             System.out.println("ange lösen");
             String passWord = scan.nextLine().trim();
+            int userID = repository.getUserID(userName, passWord);
 
 
             if (repository.validateUser(userName, passWord)) {
-
-                //repository.getUserID(userName, passWord);
-                System.out.println(repository.getUserID(userName, passWord));
-                int id = 0;
-
-
-
 
                 System.out.println("inloggning funka!");
                 System.out.println();
@@ -63,9 +57,13 @@ public class Main {
                                 .filter(p -> p.getCategoryId() == choice)
                                 .forEach(p -> System.out.println(p.printInfo()));
 
-                        int inputChooseProduct = scan.nextInt();
-                        System.out.println("du valde test " + inputChooseProduct);
-                      //  repository.addToCart(userName, );
+                        int productID = scan.nextInt();
+
+                       int orderID = 0;
+                       repository.addToCart(userID, orderID, productID );
+
+                        System.out.println("Kvitto");
+
 
 
 
