@@ -150,7 +150,37 @@ public class Repository {
 
         return categories;
     }
-  //  private static Optional<ProductTable> findProductID(int productID)
+    public int getProductID(int size, String brand) throws IOException {
+
+        properties.load(new FileInputStream(property_file));
+        try (Connection connection = DriverManager.getConnection(
+                properties.getProperty("connectionString"),
+                properties.getProperty("username"),
+                properties.getProperty("password"));) {
+
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "SELECT id FROM product WHERE brand = ? AND size = ?");
+
+            preparedStatement.setString(1, brand);
+            preparedStatement.setInt(2, size);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("id");
+
+
+            } else System.out.println("hittar ej produkt");
+            return -1;
+
+        } catch (Exception e) {
+            System.out.println("Produkten finns inte i lager");
+            e.getMessage();
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
 }
 
 

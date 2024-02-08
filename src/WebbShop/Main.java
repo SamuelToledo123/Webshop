@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 
 public class Main {
@@ -59,22 +60,26 @@ public class Main {
                              .filter(p -> p.getCategoryId() == choice)
                               .forEach(p -> System.out.println(p.printInfo()));
 
+
+                        //Märke Input
                         System.out.print("Märke: ");
                         String brandChoice = scan.next();
-
+                        //Storlek input
                         System.out.print("Storlek: ");
                         int sizeChoice = scan.nextInt();
 
-
-
-
-
-                        int productID = scan.nextInt();
-
-                       int orderID = 0;
-                       repository.addToCart(userID, orderID, productID );
+                       //Hämtar produktID baserat på svar och sätter i AddToCart
+                        int productID = repository.getProductID(sizeChoice, brandChoice);
+                        System.out.println("Product ID: " + productID);
+                        int orderID = 0;
+                       repository.addToCart(userID, orderID, productID);
 
                         System.out.println("Kvitto");
+
+                        Stream.of(productID)
+                                .forEach(System.out::println);
+
+
 
 
 
