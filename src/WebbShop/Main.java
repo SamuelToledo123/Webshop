@@ -16,12 +16,21 @@ public class Main {
             Scanner scan = new Scanner(System.in);
 
             System.out.println("ange namn");
-            String userName = scan.nextLine();
+            String userName = scan.nextLine().trim();
 
             System.out.println("ange lösen");
-            String passWord = scan.nextLine();
+            String passWord = scan.nextLine().trim();
+
 
             if (repository.validateUser(userName, passWord)) {
+
+                //repository.getUserID(userName, passWord);
+                System.out.println(repository.getUserID(userName, passWord));
+                int id = 0;
+
+
+
+
                 System.out.println("inloggning funka!");
                 System.out.println();
                 System.out.println();
@@ -48,9 +57,18 @@ public class Main {
 
 
                     case 5:
+                        System.out.println("Skriv in ID på produkt du vill lägga till:");
+
                         productList.stream()
                                 .filter(p -> p.getCategoryId() == choice)
                                 .forEach(p -> System.out.println(p.printInfo()));
+
+                        int inputChooseProduct = scan.nextInt();
+                        System.out.println("du valde test " + inputChooseProduct);
+                      //  repository.addToCart(userName, );
+
+
+
                         break;
                     case 6:
                         System.out.println("Avslutar");
@@ -59,11 +77,19 @@ public class Main {
                     default:
                         System.out.println("ogiltigt svar");
                 }
+               // int choiche2 = scan.nextInt();
+              //  System.out.println("du valde test " + choiche2);
+
+
+
+
+
             } else {
                 System.out.println("inloggning funkaar ej");
             }
             scan.close();
         } catch (InputMismatchException e) {
         }
+
     }
 }

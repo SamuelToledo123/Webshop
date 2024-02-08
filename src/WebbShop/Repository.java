@@ -1,14 +1,15 @@
 package WebbShop;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 
 public class Repository {
     Properties properties = new Properties();
-   final String property_file = "" +
-           "src\\WebbShop\\Settings.Properties";
+    final String property_file = "" +
+            "src\\WebbShop\\Settings.Properties";
 
 
     public boolean validateUser(String userName, String passWord) throws IOException {
@@ -35,6 +36,34 @@ public class Repository {
         }
     }
 
+    public int getUserID(String userName, String passWord) throws IOException {
+
+        properties.load(new FileInputStream(property_file));
+        try (Connection connection = DriverManager.getConnection(
+                properties.getProperty("connectionString"),
+                properties.getProperty("username"),
+                properties.getProperty("password"));) {
+
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "SELECT id FROM customer WHERE namn = ? AND passwords = ?");
+
+            preparedStatement.setString(1, userName);
+            preparedStatement.setString(2, passWord);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("id");
+
+            } else System.out.println("hittar ej användare");
+
+        } catch (Exception e) {
+            e.getMessage();
+            throw new RuntimeException(e);
+        }
+      return -1;
+    }
+
+
     List<ProductTable> getProduct() throws IOException {
 
         properties.load(new FileInputStream(property_file));
@@ -44,7 +73,7 @@ public class Repository {
                 properties.getProperty("username"),
                 properties.getProperty("password"));) {
 
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT brand, size, price, color, categoryID FROM product");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT brand, size, price, color, id, categoryID FROM product");
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
 
 
@@ -60,6 +89,8 @@ public class Repository {
                     temp.setPrice(price);
                     int categoryid = resultSet.getInt("categoryid");
                     temp.setCategoryId(categoryid);
+                    int id = resultSet.getInt("id");
+                    temp.setId(id);
                     String color = resultSet.getString("color");
                     temp.setColor(color);
 
@@ -119,6 +150,7 @@ public class Repository {
 
         return categories;
     }
+  //  private static Optional<ProductTable> findProductID(int productID)
 }
 
 
