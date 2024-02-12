@@ -71,7 +71,7 @@ public class ProductTable implements Interface{
 
     @Override
     public String printInfo() {
-        return "Märke:" + getBrand() + " Storlek:" + getSize() + " Pris" + ":" + getPrice() + "kr";
+        return "Märke:" + getBrand() + " Storlek:" + getSize() + " Pris" + ":" + getPrice() + "kr" + "Färg: " + getColor();
     }
 
 }
