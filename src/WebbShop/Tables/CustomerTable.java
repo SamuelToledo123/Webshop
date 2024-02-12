@@ -1,13 +1,14 @@
-package WebbShop;
+package WebbShop.Tables;
 
 public class CustomerTable {
     private int id;
-    protected String namn;
-    protected int phoneNumber;
-    protected long socialSecurityNumber;
+    private String namn;
+    private int phoneNumber;
+    private long socialSecurityNumber;
 
+    public CustomerTable() {
 
-    public CustomerTable() {}
+    }
 
     public CustomerTable(String namn, int phoneNumber, int socialSecurityNumber) {
         this.namn = namn;

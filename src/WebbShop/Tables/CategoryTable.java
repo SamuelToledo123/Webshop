@@ -1,6 +1,10 @@
-package WebbShop;
+package WebbShop.Tables;
+
+import WebbShop.Interface;
 
 public class CategoryTable implements Interface {
+    protected int id;
+    protected String namn;
     public CategoryTable(int id, String namn) {
         this.id = id;
         this.namn = namn;
@@ -21,9 +25,6 @@ public class CategoryTable implements Interface {
     public void setNamn(String namn) {
         this.namn = namn;
     }
-
-    protected int id;
-    protected String namn;
 
     @Override
     public String printInfo() {

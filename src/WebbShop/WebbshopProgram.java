@@ -1,8 +1,11 @@
 package WebbShop;
 
+import WebbShop.Tables.CategoryTable;
+import WebbShop.Tables.CustomerTable;
+import WebbShop.Tables.ProductTable;
+
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -10,7 +13,6 @@ import java.util.stream.Collectors;
 public class WebbshopProgram {
     public static void main(String[] args) throws IOException {
 
-       //Hämtar alla behövande klasser
         Repository repository = new Repository();
         UserPrompt user = new UserPrompt();
         List<Integer> productIDs = new ArrayList<>();
@@ -41,17 +43,18 @@ public class WebbshopProgram {
                                 .filter(p -> p.getCategoryId() == choice)
                                 .forEach(p -> System.out.println(p.printInfo()));
 
-                        //Märke Input
-                        System.out.print("Märke: ");
+                        System.out.println("-------------------------------");
+                        System.out.println("Vänligen specifiera en produkt från sortimentet du vill beställa nedan");
+                        System.out.print("Ange Märke: ");
                         String brandChoice = scan.next();
-                        //Storlek input
-                        System.out.print("Storlek: ");
+
+                        System.out.print("Ange Storlek: ");
                         int sizeChoice = scan.nextInt();
 
-                        //Hämtar produktID baserat på svar och sätter i AddToCart
-                        int productID = repository.getProductID(sizeChoice, brandChoice);
-                        //Sparar alla produktID i en Lista
-                        productIDs.add(productID);
+
+                        int productID = repository.getProductID(sizeChoice, brandChoice, colorChoice);
+
+                       // productIDs.add(productID);
 
                         int orderID = 0;
                         repository.addToCart(userID, orderID, productID);
@@ -74,7 +77,7 @@ public class WebbshopProgram {
                             System.out.println(receipt);
                             */
 
-                            String receipt = productIDs.stream()
+                            /*String receipt = productIDs.stream()
                                     .map(productId -> productList.stream()
                                              .filter(p -> p.getId() == productId) // Filtrera id
                                             .map(p -> String.format("Märke: %s, Storlek: %d, Pris: %d kr", p.getBrand(), p.getSize(), p.getPrice()))
@@ -86,7 +89,7 @@ public class WebbshopProgram {
 
                         break;
                     case 6:
-                        System.out.println("Välkommen åter");
+                        System.out.println("Välkommen åter!");
                         break;
 
                     case 7:

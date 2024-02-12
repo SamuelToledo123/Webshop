@@ -1,12 +1,14 @@
-package WebbShop;
+package WebbShop.Tables;
 
-public class ProductTable implements Interface{
-    int id;
-    String brand;
-    int size;
-    String color;
-    int price;
-    int categoryId;
+import WebbShop.Interface;
+
+public class ProductTable implements Interface {
+    private int id;
+    private String brand;
+    private int size;
+    private String color;
+    private int price;
+    private int categoryId;
 
     public ProductTable(int id, String brand, int size, String color, int price, int categoryId) {
         this.id = id;
@@ -71,7 +73,7 @@ public class ProductTable implements Interface{
 
     @Override
     public String printInfo() {
-        return "Märke:" + getBrand() + " Storlek:" + getSize() + " Pris" + ":" + getPrice() + "kr" + "Färg: " + getColor();
+        return "Märke:" + getBrand() + " Storlek:" + getSize() + " Pris" + ":" + getPrice() + "kr " + "Färg: " + getColor();
     }
 
 }

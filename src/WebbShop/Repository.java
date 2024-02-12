@@ -1,7 +1,10 @@
 package WebbShop;
 
+import WebbShop.Tables.CategoryTable;
+import WebbShop.Tables.CustomerTable;
+import WebbShop.Tables.ProductTable;
+
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
@@ -62,7 +65,6 @@ public class Repository {
         return -1;
     }
 
-
     List<ProductTable> getProduct() throws IOException {
 
         properties.load(new FileInputStream(property_file));
@@ -115,15 +117,18 @@ public class Repository {
             preparedStatement.setInt(1, userId);
             preparedStatement.setInt(2, orderId);
             preparedStatement.setInt(3, productId);
-            preparedStatement.execute();
+            int rowsAffected = preparedStatement.executeUpdate();
 
+            if (rowsAffected >0 ) {
+                System.out.println("Beställningen lyckades!");
+            } else {
+                System.out.println("Beställning gick inte igenom");
+            }
 
         } catch (SQLException e) {
-
-            throw new RuntimeException(e);
+            throw new RuntimeException("finns ej i lager");
         }
     }
-
 
     public List<CategoryTable> getCategories() throws IOException {
         properties.load(new FileInputStream(property_file));
@@ -158,10 +163,11 @@ public class Repository {
                 properties.getProperty("password"));) {
 
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "SELECT id FROM product WHERE brand = ? AND size = ?");
+                    "SELECT id FROM product WHERE brand = ? AND size = ? AND color = ?");
 
             preparedStatement.setString(1, brand);
             preparedStatement.setInt(2, size);
+            preparedStatement.setString(3,color);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -172,9 +178,7 @@ public class Repository {
             return -1;
 
         } catch (Exception e) {
-            System.out.println("Produkten finns inte i lager");
-            e.getMessage();
-            throw new RuntimeException(e);
+            throw new RuntimeException("Produkten finns ej");
         }
     }
         List<CustomerTable> getPerson() throws IOException {
@@ -207,7 +211,7 @@ public class Repository {
                     return customerInfo;
                 }
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Personen finns inte i databasen");
             }
         }
     }
