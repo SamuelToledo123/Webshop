@@ -74,8 +74,8 @@ public class WebbshopProgram {
                             System.out.println(receipt);
                             */
 
-                            String receipt = productIDs.stream()  //
-                                    .map(productId -> productList.stream() // For each productID, stream over productList
+                            String receipt = productIDs.stream()
+                                    .map(productId -> productList.stream()
                                              .filter(p -> p.getId() == productId) // Filtrera id
                                             .map(p -> String.format("Märke: %s, Storlek: %d, Pris: %d kr", p.getBrand(), p.getSize(), p.getPrice()))
                                             .collect(Collectors.joining("\n"))) // Rad ner per produkt
