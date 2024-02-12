@@ -59,7 +59,7 @@ public class Repository {
             e.getMessage();
             throw new RuntimeException(e);
         }
-      return -1;
+        return -1;
     }
 
 
@@ -83,7 +83,6 @@ public class Repository {
                     temp.setBrand(brand);
                     int size = resultSet.getInt("size");
                     temp.setSize(size);
-                    product.add(temp);
                     int price = resultSet.getInt("price");
                     temp.setPrice(price);
                     int categoryid = resultSet.getInt("categoryid");
@@ -92,6 +91,7 @@ public class Repository {
                     temp.setId(id);
                     String color = resultSet.getString("color");
                     temp.setColor(color);
+                    product.add(temp);
 
 
                 }
@@ -102,7 +102,7 @@ public class Repository {
         }
     }
 
-    public void addToCart(int userId,int orderId, int productId) throws IOException{
+    public void addToCart(int userId, int orderId, int productId) throws IOException {
 
         properties.load(new FileInputStream(property_file));
 
@@ -118,7 +118,6 @@ public class Repository {
             preparedStatement.execute();
 
 
-
         } catch (SQLException e) {
 
             throw new RuntimeException(e);
@@ -127,7 +126,6 @@ public class Repository {
 
 
     public List<CategoryTable> getCategories() throws IOException {
-        // Assume 'properties' and 'property_file' are already defined and available in your class
         properties.load(new FileInputStream(property_file));
         List<CategoryTable> categories = new ArrayList<>();
 
@@ -150,6 +148,7 @@ public class Repository {
 
         return categories;
     }
+
     public int getProductID(int size, String brand) throws IOException {
 
         properties.load(new FileInputStream(property_file));
@@ -177,13 +176,41 @@ public class Repository {
             e.getMessage();
             throw new RuntimeException(e);
         }
-
-
     }
+        List<CustomerTable> getPerson() throws IOException {
+
+            properties.load(new FileInputStream(property_file));
+
+            try (Connection connection = DriverManager.getConnection(
+                    properties.getProperty("connectionString"),
+                    properties.getProperty("username"),
+                    properties.getProperty("password"));) {
+
+                PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, socialSecurityNumber, phoneNumber, namn FROM Customer");
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
 
 
+                    List<CustomerTable> customerInfo = new ArrayList<>();
+                    while (resultSet.next()) {
+                        CustomerTable temp = new CustomerTable();
+                        int id = resultSet.getInt("id");
+                        temp.setId(id);
+                        long socialSecurityNumber = resultSet.getLong("socialSecurityNumber");
+                        temp.setSocialSecurityNumber(socialSecurityNumber);
+                        int phoneNumber = resultSet.getInt("phoneNumber");
+                        temp.setPhoneNumber(phoneNumber);
+                        String namn = resultSet.getString("namn");
+                        temp.setNamn(namn);
+                        customerInfo.add(temp);
 
-}
+                    }
+                    return customerInfo;
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 
 
 

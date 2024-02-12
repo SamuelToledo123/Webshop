@@ -1,6 +1,7 @@
 package WebbShop;
 
 public class CustomerTable {
+    private int id;
     protected String namn;
     protected int phoneNumber;
     protected long socialSecurityNumber;
@@ -37,4 +38,11 @@ public class CustomerTable {
     public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }

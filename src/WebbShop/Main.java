@@ -1,5 +1,6 @@
 package WebbShop;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -33,8 +34,9 @@ public class Main {
             if (repository.validateUser(userName, passWord)) {
 
 
-               while(true) {
-                   boolean continueLoop = false;
+                boolean continueOrdering = false;
+                do {
+                    userPrompt.UserFirstMenu();
 
 
                     int choice = scan.nextInt();
@@ -45,26 +47,20 @@ public class Main {
 
                     switch (choice) {
 
-                       case 1:
-                       case 2:
-                       case 3:
-                       case 4:
+                        case 1, 2, 3, 4, 5:
 
-
-                       case 5:
-                           System.out.println("Svara nedan för att välja produkt:");
+                            System.out.println("Svara nedan för att välja produkt:");
 
                             productList.stream()
                                     .filter(p -> p.getCategoryId() == choice)
                                     .forEach(p -> System.out.println(p.printInfo()));
 
-
-                           //Märke Input
-                           System.out.print("Märke: ");
-                           String brandChoice = scan.next();
-                           //Storlek input
-                           System.out.print("Storlek: ");
-                           int sizeChoice = scan.nextInt();
+                            //Märke Input
+                            System.out.print("Märke: ");
+                            String brandChoice = scan.next();
+                            //Storlek input
+                            System.out.print("Storlek: ");
+                            int sizeChoice = scan.nextInt();
 
                             //Hämtar produktID baserat på svar och sätter i AddToCart
                             int productID = repository.getProductID(sizeChoice, brandChoice);
