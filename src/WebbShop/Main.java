@@ -28,17 +28,7 @@ public class Main {
 
             if (repository.validateUser(userName, passWord)) {
 
-                System.out.println("inloggning funka!");
-                System.out.println();
-                System.out.println();
-                System.out.println("välj Kategori");
-                System.out.println("1. Boots");
-                System.out.println("2. Finskor");
-                System.out.println("3. Outdoor");
-                System.out.println("4. Sneakers");
-                System.out.println("5. Träning");
-                System.out.println("6. Avsluta");
-
+                Repository.MenuTextUser();
 
                 int choice = scan.nextInt();
 
