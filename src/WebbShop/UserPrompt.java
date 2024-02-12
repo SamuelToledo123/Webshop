@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class UserPrompt {
     Repository repository = new Repository();
-    CustomerTable customer = new CustomerTable();
+
     public UserPrompt() {
 
     }

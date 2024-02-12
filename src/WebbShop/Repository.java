@@ -154,7 +154,7 @@ public class Repository {
         return categories;
     }
 
-    public int getProductID(int size, String brand) throws IOException {
+    public int getProductID(int size, String brand,String color) throws IOException {
 
         properties.load(new FileInputStream(property_file));
         try (Connection connection = DriverManager.getConnection(
@@ -174,7 +174,7 @@ public class Repository {
                 return resultSet.getInt("id");
 
 
-            } else System.out.println("hittar ej produkt");
+            } else System.out.println("OBS! Produkten finns inte i lager");
             return -1;
 
         } catch (Exception e) {
