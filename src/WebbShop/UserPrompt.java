@@ -1,8 +1,12 @@
 package WebbShop;
 
-public class UserPrompt {
-    public UserPrompt() {}
+import java.io.IOException;
+import java.util.Scanner;
 
+public class UserPrompt {
+    public UserPrompt() {
+
+    }
 
 
     public void UserFirstMenu() {
@@ -24,6 +28,42 @@ public class UserPrompt {
 
     }
 
+    public int Login() {
 
+        Repository repository = new Repository();
+        Scanner scan = new Scanner(System.in);
+
+        while(true) {
+
+          try {
+
+              System.out.print("Ange namn: ");
+              String userName = scan.nextLine().trim();
+
+              System.out.print("Ange lösen: ");
+              String passWord = scan.nextLine().trim();
+             int userID = repository.getUserID(userName, passWord);
+
+
+              if (repository.validateUser(userName, passWord)) {
+
+                  return userID;
+              } else {
+                  System.out.println("Försök igen");
+              }
+
+              //List<Integer> productIDs = new ArrayList<>();
+          } catch (IOException e) {
+              throw new RuntimeException(e);
+
+          }
+
+
+      }
+
+
+
+
+    }
 
 }

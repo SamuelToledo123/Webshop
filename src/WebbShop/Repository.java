@@ -53,7 +53,7 @@ public class Repository {
             if (resultSet.next()) {
                 return resultSet.getInt("id");
 
-            } else System.out.println("hittar ej användare");
+            } else System.out.println("Hittar ej användare");
 
         } catch (Exception e) {
             e.getMessage();
