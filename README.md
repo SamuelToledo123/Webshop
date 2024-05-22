@@ -1,0 +1,1 @@
+assignment add a password column to the Customer table and creating an interface, either command-line or graphical, for users to add products to orders. It also emphasizes the use of lambdas to streamline processes and improve user experience while ensuring security measures.
